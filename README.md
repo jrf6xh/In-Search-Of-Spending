@@ -13,21 +13,21 @@ For example, if we think a customer will spend 150 USD in the store, we can send
 Additionally, our model will allow us to pinpoint which factors influence spending. Resources can then be deployed to improve features that deter purchases.
 
 **Links:**
-* [High Level Project Overview](https://github.com/jrf6xh/Capstone-Revenue_Prediction/blob/master/Presentation.pdf)
-* [Code & Detailed Walkthrough](https://github.com/jrf6xh/Capstone-Revenue_Prediction/blob/master/Notebooks/Technical_Notebook.ipynb)
+* [High Level Project Overview](https://github.com/jrf6xh/In-Search-Of-Spending/blob/master/Presentation.pdf)
+* [Code & Detailed Walkthrough](https://github.com/jrf6xh/In-Search-Of-Spending/blob/master/Notebooks/Technical_Notebook.ipynb)
 
 
 ## Readme Navigation
-[Overview](https://github.com/jrf6xh/Capstone-Revenue_Prediction#overview) -
-[Data](https://github.com/jrf6xh/Capstone-Revenue_Prediction#data) -
-[Data Cleaning](https://github.com/jrf6xh/Capstone-Revenue_Prediction#data-cleaning) -
-[Modeling](https://github.com/jrf6xh/Capstone-Revenue_Prediction#modeling) -
-[Model Results](https://github.com/jrf6xh/Capstone-Revenue_Prediction#model-results) -
-[Limitations](https://github.com/jrf6xh/Capstone-Revenue_Prediction#limitations) -
-[Future Improvements](https://github.com/jrf6xh/Capstone-Revenue_Prediction#future-improvements) -
-[Reproduction Instructions](https://github.com/jrf6xh/Capstone-Revenue_Prediction#reproduction-instructions) -
-[Sources](https://github.com/jrf6xh/Capstone-Revenue_Prediction#sources) -
-[Project Information](https://github.com/jrf6xh/Capstone-Revenue_Prediction#project-information)
+[Overview](https://github.com/jrf6xh/In-Search-Of-Spending#overview) -
+[Data](https://github.com/jrf6xh/In-Search-Of-Spending#data) -
+[Data Cleaning](https://github.com/jrf6xh/In-Search-Of-Spending#data-cleaning) -
+[Modeling](https://github.com/jrf6xh/In-Search-Of-Spending#modeling) -
+[Model Results](https://github.com/jrf6xh/In-Search-Of-Spending#model-results) -
+[Limitations](https://github.com/jrf6xh/In-Search-Of-Spending#limitations) -
+[Future Improvements](https://github.com/jrf6xh/In-Search-Of-Spending#future-improvements) -
+[Reproduction Instructions](https://github.com/jrf6xh/In-Search-Of-Spending#reproduction-instructions) -
+[Sources](https://github.com/jrf6xh/In-Search-Of-Spending#sources) -
+[Project Information](https://github.com/jrf6xh/In-Search-Of-Spending#project-information)
 
 ## Data
 The data used in this project relates to Google's online store.  Each row in the dataset represents a visit to the store.  The data is available through [Kaggle](https://www.kaggle.com/c/ga-customer-revenue-prediction/data).
@@ -50,29 +50,26 @@ The data used in this project relates to Google's online store.  Each row in the
 **Purchase Breakdown:**
 Most purchases are under 100 USD, though there are outlier purchases that range up to 23k USD.  Average revenue from a purchase is 124 USD.
 
-![](https://github.com/jrf6xh/Capstone-Revenue_Prediction/blob/master/Images/revenue_hist.png)
+![](https://github.com/jrf6xh/In-Search-Of-Spending/blob/master/Images/revenue_hist.png)
 
-**Channel Grouping:**
-Customers that get to the Google store through banner and other display advertisements spend a larger amount than customers that get to the store in any other way.
+**Page Views:**
 
-Customers that go to the store directly or are referred also spend a large amount.
+![](https://github.com/jrf6xh/In-Search-Of-Spending/blob/master/Images/avg_views_vs_purchases.png)
 
-Customers that get to the store through social media or affiliate marketing tend to spend less on average.
+Customers who make a purchase click through more pages on the site than those who don't make a purchase.  Let's take a more detailed look:
 
-![](https://github.com/jrf6xh/Capstone-Revenue_Prediction/blob/master/Images/avg_rev_channel.png)
+![](https://github.com/jrf6xh/In-Search-Of-Spending/blob/master/Images/purchase_percent_by_views.png)
 
-Although 'Display' customers spend large amounts if they make a purchase, they are not as likely as other customers to make a purchase in the first place.
+Customers who view <10 pages during their visit to the site are not likely to make a purchase.  This could be because they can't find what they are looking for, or simply are not interested in the products offered.
 
-'Direct' and 'Referral' customers, on the other hand, are more likely than other groups of visitors to actually make a purchase.
+![](https://github.com/jrf6xh/In-Search-Of-Spending/blob/master/Images/avg_purchase_by_views.png)
 
-'Social Media' and 'Affiliate' visitors are the least likely to make a purchase.
-
-![](https://github.com/jrf6xh/Capstone-Revenue_Prediction/blob/master/Images/purchase_percent_channel.png)
+More page views lead to not only a higher chance of making a purchase, but a higher average purchase size.
 
 **Number of Visits to the Store:**
 Customers that have visited the store before are more likely to make a purchase than those who are visiting the store for the first time.
 
-![](https://github.com/jrf6xh/Capstone-Revenue_Prediction/blob/master/Images/avg_visits_vs_purchases.png)
+![](https://github.com/jrf6xh/In-Search-Of-Spending/blob/master/Images/avg_visits_vs_purchases.png)
 
 ## Data Cleaning
 **Steps:**
@@ -103,14 +100,20 @@ These models performed about as well as the KNN model, but progress slowed after
 Because progress in terms of R-Squared and RMSE had slowed, we pulled in more features from the original data in order to improve performance.  K Means clustering was also employed here, with cluster labels and silhouette scores being added as columns to the modeling data set.
 
 * **Random Forest Models - With New Data:**
-These models performed the best out of all of the previous iterations.  Due to time constraints the modeling process was suspended here and the random forest model was selected as the final model for this stage of the project.
+These models performed the best out of all of the previous iterations.  The random forest model was selected as the final model for this stage of the project.
+
+The final parameters were:
+* Estimators - 200
+* Minimum Samples per Split - 200
+* Minimum Samples per Leaf - 45
+* Maximum Depth - 40
 
 ## Model Results
 * **Cross Validation:**
-The model had an R-Squared value of 8.5%, meaning that 8.5% of the variation in revenue could be explained by the model.  This is lower than optimal and will be improved with further iterations of this project.
+The model had an R-Squared value of 32.1%, meaning that 32.1% of the variation in revenue could be explained by the model.  This is lower than optimal and will be improved with further iterations of this project.
 
 * **Test Data:**
-When using the model on the test data the R-Squared value falls to 0.9%.  This indicates a severe problem with overfitting to training data or an unrepresentative test-train split.  The primary goal of further iterations of this project will be to improve this metric.
+When using the model on the test data the R-Squared value is 32.6%. This indicates that previous overfitting issues were solved.  The R-Squared value is still not optimal.  The primary goal of further iterations of this project will be to improve this metric.
 
 ## Limitations
 **The Data:**
@@ -120,17 +123,15 @@ When using the model on the test data the R-Squared value falls to 0.9%.  This i
 * It is unknown if this is an exhaustive data set of all visits to the store within the 2016-2018 time frame.
 
 **The Model:**
-* Predictive power is very limited using the current best model.
+* Predictive power is somewhat limited using the current best model.
 * Exhaustive tuning is impossible due to limits on computational power.
 
 ## Future Improvements
 **Additional Data:**
 * Using more data to train the model could yield better results.
-* Incorporating economic data could help correct for overall increases/decreases in consumer spending over time.
 * Accessing additional data from Google could allow for more precise modeling.
 
 **Improved Modeling:**
-* Additional model types should be tested in an effort to increase evaluation metrics.  XGBoost regression could yield better results and will be tested in further iterations of this project.
 * Generalizing the model to use only more common features would allow the model to be deployed for online stores other than Google's.
 
 **Model Deployment:**
@@ -140,7 +141,7 @@ When using the model on the test data the R-Squared value falls to 0.9%.  This i
 * Download the original data from the Kaggle link in the source section.
 * Run the first section of the Technical Notebook to prepare the data for modeling.
 * The data is saved and loaded periodically throughout the code to limit the memory strain on your local computer and to allow for modular running of certain sections of the notebook.
-* All code is contained in the Technical Notebook.  The code can also be run modularly in the following order: Preprocessing -> EDA -> Modeling -> Results_Analysis
+* All code is contained in the Technical Notebook.
 
 ## Sources
 * The original data is made available by Google through a [Kaggle Competition.](https://www.kaggle.com/c/ga-customer-revenue-prediction/data)
@@ -156,6 +157,7 @@ Jim Fay
 Contact Info:
 * [LinkedIn](https://www.linkedin.com/in/james-fay/)
 * [Github](https://github.com/jrf6xh)
+* Email - jrf6xh@virginia.edu
 
 **Languages:** Python
 
@@ -163,4 +165,4 @@ Contact Info:
 
 **Duration:** August 24 - September 2, 2020
 
-**Last Update:** September 2, 2020
+**Last Update:** October 5, 2020
